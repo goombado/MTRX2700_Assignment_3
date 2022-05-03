@@ -1,0 +1,13 @@
+WEEK 1 MINUTES
+
+Attendees: Andrei, Daniel, Mary, Minghan (Remote), Xuechi (Remote)
+
+This lab, we brainstormed ideas for the major project, ultimately deciding to create and implement an object detection method used for 
+barcodless scanning. The harware module would require the use of both servo motors and the the lidar sensor to scan the object. This data 
+will then be interpreted and sent to the computer interface to be displayed to customers. This design allows for possible extensions such 
+as the use of the 7-segs, sound playing and adding the use of buttons to the functionality.
+
+After creating a high level overview of our design, we decided that the remote students should focus on the UI (computer interface) and 
+on-campus students to focus on the hardware interface as on-campus students have access to the hardware.
+
+We finished the lab by finalising our design so that we can present it to the tutors next lab
