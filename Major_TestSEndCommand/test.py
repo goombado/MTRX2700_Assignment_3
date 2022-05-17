@@ -6,7 +6,7 @@ def serialWrite(com_port):
 
     while(1):
         if(serialPort.in_waiting > 0):
-            serialPort.write(str.encode("l 20"))
+            serialPort.write('l 20'.encode('utf-8'))
             serialPort.flush()
             print(serialPort.in_waiting)
 
