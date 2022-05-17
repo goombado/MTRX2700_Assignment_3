@@ -1,0 +1,10 @@
+WEEK 3 MINUTES
+
+Attendees: Andrei, Daniel, Mary, Minghan (Remote), Xuechi (Remote)
+
+This week, we started scanning objects to use as pre-set data. It took most of thhe lab to adjust the code and have it scan in the directions we wanted,
+but we still managed to get 3 scans of a coffee cup.
+
+The UI was also started - displaying a 'scan' button, a 'checkout' button and a designated space for information about objects/products to be displayed.
+
+Next week, we will continue scanning the preset data and work on integrating the UI and hardware.
