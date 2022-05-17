@@ -1,18 +1,44 @@
 import serial
-
+import time
 
 def serialWrite(com_port):
     serialString = ""      
-    serialPort = serial.Serial(port=com_port, baudrate=115200, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
+    serialPort = serial.Serial(port=com_port, baudrate=9600, bytesize=serial.EIGHTBITS, timeout=2, write_timeout = 0, xonxoff=True, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
+    time.sleep(3)   # Only needed for Arduino,For AVR/PIC/MSP430 & other Micros not needed
+                # opening the serial port from Python will reset the Arduino.
+                # Both Arduino and Python code are sharing Com11 here.
+                # 3 second delay allows the Arduino to settle down.
 
-    while(1):
-        if(serialPort.in_waiting > 0):
-            serialPort.write('l 20'.encode('utf-8'))
-            serialPort.flush()
-            print(serialPort.in_waiting)
+
+    # BytesWritten = serialPort.write(b'A\n\r')      #transmit 'A' (8bit) to micro/Arduino
+    # serialPort.flush()
+
+    # print('BytesWritten = ', BytesWritten)
     
+    BytesWritten = serialPort.write(b'l')      #transmit 'A' (8bit) to micro/Arduino
+    serialPort.flush()
+    print('BytesWritten = ', BytesWritten)
+    # BytesWritten = serialPort.write(b'\r')      #transmit 'A' (8bit) to micro/Arduino
+    # serialPort.flush()
+    # print('BytesWritten = ', BytesWritten)
+    # BytesWritten = serialPort.write(b'\n')      #transmit 'A' (8bit) to micro/Arduino
+    # serialPort.flush()
+    # print('BytesWritten = ', BytesWritten)
+
+    serialPort.close()    
+
+    """
+    while(1):
+        if(serialPort.out_waiting > 0):
+            serialPort.write('l 20\n\r'.encode('utf-8'))
+            serialPort.flush()
+            print("yes")
+        else:
+            time.sleep(0.05)
+    """
 
 
     
 if __name__ == '__main__':
-    serialWrite("COM4")
+    serialWrite("/dev/tty.usbserial-DN01E799")
+    
