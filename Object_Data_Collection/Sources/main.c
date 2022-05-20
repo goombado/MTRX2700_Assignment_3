@@ -57,8 +57,8 @@ void printErrorCode(IIC_ERRORS error_code) {
 
 void main(void) {
 
-  // AccelRaw read_accel;
-  // AccelScaled scaled_accel;
+  AccelRaw read_accel;
+  AccelScaled scaled_accel;
 
   GyroRaw read_gyro;
   // MagRaw read_magnet;
@@ -69,7 +69,7 @@ void main(void) {
   
   unsigned long singleSample;
   
-  unsigned int slowDown = 0;
+//  unsigned int slowDown = 0;
 //  unsigned int iterations = 0;
 //  direction = 0;
 //  iterations = 0;
@@ -84,7 +84,7 @@ void main(void) {
 
   // initialise PWM
   PWMinitialise();
-  setServoPose(-750, 0);
+  setServoPose(100, 100);
   // setServoPose(0, -50);
 
   #endif
@@ -110,11 +110,12 @@ void main(void) {
   
   #endif
 
-  Init_TC6();
   laserInit();
+  Init_TC6();
   EnableInterrupts;
-  sprintf(buffer, "distance,gyro_x,gyro_y,gyro_z");
-  SerialOutputString(buffer, &SCI1);
+  
+  // sprintf(buffer, "distance,gyro_x,gyro_y,gyro_z");
+  // SerialOutputString(buffer, &SCI1);
   //COPCTL = 7;
   _DISABLE_COP();
     

@@ -70,6 +70,7 @@ __interrupt void TC6_ISR(void) {
   TC6 = TCNT + 64000;   // interrupt delay depends on the prescaler
   TFLG1 |= TFLG1_C6F_MASK;
   
+  /**
   if (iterations < (BASE_ITERATIONS / INCREMENT_NUM)) {
     iterations++;
   }
@@ -105,5 +106,19 @@ __interrupt void TC6_ISR(void) {
   else {
     setServoPose(0, 50 + iterator_counter);
   }
+  **/
+  
+  if (toggle == 0)
+    iterator_counter++;
+  else
+    iterator_counter--;
+  
+  if (iterator_counter > 500) {
+    toggle = 1;
+  } else if (iterator_counter < 0) {
+    toggle = 0;
+  }
+  
+  setServoPose(50 + iterator_counter, 50 + iterator_counter);
 }
 
