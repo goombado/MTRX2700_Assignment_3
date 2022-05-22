@@ -60,7 +60,7 @@ def read_serial(com_port):
     serialPort = serial.Serial(port=com_port, baudrate=9600, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
     serialString = ""  # Used to hold data coming over UART
 
-    outFile = open('coffee_data.csv', 'w')
+    outFile = open('box_data.csv', 'w')
     while True:
 
         # Wait until there is data waiting in the serial buffer

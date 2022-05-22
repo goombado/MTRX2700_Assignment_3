@@ -52,6 +52,7 @@ void Init_TC6 (void) {
 long iterator_counter = MIN_ITER;
 int toggle = 0;
 int scan_num = 1;
+int scan_skip = 1;
 static char buffer[128];
 
 
@@ -61,7 +62,14 @@ static char buffer[128];
 __interrupt void TC6_ISR(void) { 
    
   TC6 = TCNT + 64000;   // interrupt delay depends on the prescaler
-  TFLG1 |= TFLG1_C6F_MASK; 
+  TFLG1 |= TFLG1_C6F_MASK;
+  
+  if (scan_skip < SCAN_EVERY_X) {
+    scan_skip++;
+    return;
+  }
+  
+  scan_skip = 1;
 
   if (toggle == 0)
     iterator_counter += INCREMENT_NUM;

@@ -1,0 +1,2 @@
+15cm from scanner when scanner horizontal
+box is 13cm across
