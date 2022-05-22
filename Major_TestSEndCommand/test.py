@@ -15,15 +15,20 @@ def serialWrite(com_port):
 
     # print('BytesWritten = ', BytesWritten)
     
+    """ BytesWritten = serialPort.write('k'.encode('utf_8'))      #transmit 'A' (8bit) to micro/Arduino
+    serialPort.flush()
+    print('BytesWritten = ', BytesWritten)
+    time.sleep(3) """
+
     BytesWritten = serialPort.write(b'l')      #transmit 'A' (8bit) to micro/Arduino
     serialPort.flush()
     print('BytesWritten = ', BytesWritten)
-    # BytesWritten = serialPort.write(b'\r')      #transmit 'A' (8bit) to micro/Arduino
-    # serialPort.flush()
-    # print('BytesWritten = ', BytesWritten)
-    # BytesWritten = serialPort.write(b'\n')      #transmit 'A' (8bit) to micro/Arduino
-    # serialPort.flush()
-    # print('BytesWritten = ', BytesWritten)
+    BytesWritten = serialPort.write(b'\r')      #transmit 'A' (8bit) to micro/Arduino
+    serialPort.flush()
+    print('BytesWritten = ', BytesWritten)
+    BytesWritten = serialPort.write(b'\n')      #transmit 'A' (8bit) to micro/Arduino
+    serialPort.flush()
+    print('BytesWritten = ', BytesWritten)
 
     serialPort.close()    
 
@@ -40,5 +45,5 @@ def serialWrite(com_port):
 
     
 if __name__ == '__main__':
-    serialWrite("/dev/tty.usbserial-DN01E799")
+    serialWrite("COM4")
     
