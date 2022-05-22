@@ -12,9 +12,9 @@
 #define BASE_ITERATIONS 1600
 #define MIN_ITER -850
 #define MAX_ITER 750
-#define INCREMENT_NUM 3
+#define INCREMENT_NUM 1
 #define MAX_SCANS 4
-#define SCAN_EVERY_X 2
+#define SCAN_EVERY_X 1
 
 
 extern int toggle;
