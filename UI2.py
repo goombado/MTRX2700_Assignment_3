@@ -1,29 +1,47 @@
+from pickle import TRUE
 import tkinter as tk
 from tkinter import ttk
 import serial
 import time
+from TempObjectDetect import main_object_detection 
 
 # Variables for use
-global totalItems
-totalItems=0
+global uniqueItems
+uniqueItems=0
 
 def scan() -> None:
-    global totalItems
+    global uniqueItems
     serialString = ""      
     serialPort = serial.Serial(port="COM4", baudrate=9600, bytesize=serial.EIGHTBITS, timeout=2, write_timeout = 0, xonxoff=True, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
     time.sleep(0.1)   # Only needed for Arduino,For AVR/PIC/MSP430 & other Micros not needed
-    BytesWritten = serialPort.write(b's')      #transmit 'A' (8bit) to micro/Arduino
+    BytesWritten1 = serialPort.write(b's')      #transmit 'A' (8bit) to micro/Arduino
     serialPort.flush()
-    print('BytesWritten = ', BytesWritten)
-    BytesWritten = serialPort.write(b'\r')      #transmit 'A' (8bit) to micro/Arduino
+    
+    BytesWritten2 = serialPort.write(b'\r')      #transmit 'A' (8bit) to micro/Arduino
     serialPort.flush()
-    print('BytesWritten = ', BytesWritten)
-    BytesWritten = serialPort.write(b'\n')      #transmit 'A' (8bit) to micro/Arduino
+    
+    BytesWritten3 = serialPort.write(b'\n')      #transmit 'A' (8bit) to micro/Arduino
     serialPort.flush()
-    print('BytesWritten = ', BytesWritten)
 
     print("Begin Scan")
-    totalItems = totalItems+1
+    
+    detectedObject = main_object_detection(None, None, None)
+    itemFound = False
+
+    if uniqueItems != 0:
+        for i in range(uniqueItems):
+            object = receipt.item(i)
+            values = object.get("values")
+            if values[0] == detectedObject[0]:
+                receipt.delete(i)
+                receipt.insert(parent='',index='end',iid=i,text='',
+                    values=(values[0],values[1] + 1,values[2]))
+                itemFound == True
+                return
+    if itemFound == False:
+        receipt.insert(parent='',index='end',iid=uniqueItems,text='',
+            values=(detectedObject[0],'1',detectedObject[1]))
+        uniqueItems = uniqueItems+1
 
 
 
@@ -49,10 +67,9 @@ def checkoutFunc() -> None:
 
     finalReceipt.place(x=10,y=60)
 
-    for i in range(totalItems):
+    for i in range(uniqueItems):
         object = receipt.item(i)
         values = object.get("values")
-        print(i)
         finalReceipt.insert(parent='',index='end',iid=i,text='',
             values=(values[0],values[1], values[2])) 
     
@@ -64,7 +81,6 @@ window = tk.Tk()
 # Get your screen resolution to calculate layout parameters
 screenwidth = window.winfo_screenwidth()
 screenheight = window.winfo_screenheight()
-print(screenwidth, screenheight)
 
 # Make the window half the size of the screen
 width = int(screenwidth/2)
@@ -150,17 +166,6 @@ receipt.heading("#0",text="",anchor=tk.CENTER)
 receipt.heading("Item",text="Item",anchor=tk.CENTER)
 receipt.heading("Quantity",text="Quantity",anchor=tk.CENTER)
 receipt.heading("Price",text="Price",anchor=tk.CENTER)
-
-receipt.insert(parent='',index='end',iid=0,text='',
-values=('0','apple','$1'))
-receipt.insert(parent='',index='end',iid=1,text='',
-values=('1','orange','$1.5'))
-receipt.insert(parent='',index='end',iid=2,text='',
-values=('2','pear','$3'))
-receipt.insert(parent='',index='end',iid=3,text='',
-values=('3','mango','$5'))
-
-print(receipt.item(1).values())
 
 receipt.place(x= 0, y= 0)
 
