@@ -84,8 +84,8 @@ void main(void) {
 
   // initialise PWM
   PWMinitialise();
-  setServoPose(-750, 0);
-  // setServoPose(0, -50);
+  // setServoPose(-750, 0);
+  setServoPose(0, -50);
 
   #endif
   
@@ -123,6 +123,7 @@ void main(void) {
     // #ifndef SIMULATION_TESTING
   
     // read the raw values
+    /** 
     error_code = getRawDataGyro(&read_gyro);   
     if (error_code != NO_ERROR) {
       printErrorCode(error_code);   
@@ -130,6 +131,7 @@ void main(void) {
       error_code = iicSensorInit();
       printErrorCode(error_code);   
     }
+    **/
     
     // error_code = getRawDataAccel(&read_accel);
     // if (error_code != NO_ERROR) {
@@ -157,7 +159,8 @@ void main(void) {
     
     // format the string of the sensor data to go the the serial    
     // sprintf(buffer, "%lu, %d, %d, %d, %.2f, %.2f, %.2f\r\n", singleSample, read_gyro.x, read_gyro.y, read_gyro.z, scaled_accel.x, scaled_accel.y, scaled_accel.z);
-    sprintf(buffer, "%lu,%d,%d,%d\r\n", singleSample, read_gyro.x, read_gyro.y, read_gyro.z);
+    // sprintf(buffer, "%lu,%d,%d,%d\r\n", singleSample, read_gyro.x, read_gyro.y, read_gyro.z);
+    sprintf(buffer, "%lu\r\n", singleSample);
     // output the data to serial
     SerialOutputString(buffer, &SCI1);
     

@@ -56,7 +56,7 @@ void Init_TC6 (void) {
 
 // variables to make the servo move back and forth
 // note: This is just to demonstrate the function of the servo
-long iterator_counter = -800;
+long iterator_counter = -200;
 int toggle = 0;
 int iterations = 0;
 int direction = 0;
@@ -95,7 +95,9 @@ __interrupt void TC6_ISR(void) {
   
   if (iterator_counter > 800) {                  
     toggle = 1;
-  } else if (iterator_counter < -800) {
+  } 
+  
+  else if (iterator_counter < -800) {
     toggle = 0;
   }
   
