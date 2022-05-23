@@ -154,8 +154,11 @@ def Process_Testing_File(testing_file, training_file):
         for instance in data1:
             instance = instance.replace("\n", "")
             instance = instance.split(",")
+            instance = Split_and_reverse_data(instance)
             test.append(instance)
+            
         test = np.array(test).astype(np.float)
+        
         
         # Read training file and store data to 2-d array, 'train'
         data2 = file2.readlines()
@@ -198,10 +201,35 @@ def Normalize_data(data, min_column, max_column):
     
     return data
 
-
+def Split_and_reverse_data(instance):
+    first_element = 0
+    num_split = 6
+    # Reverse instance if there is a zero in front
+    if instance[first_element]  ==  0:
+        instance.reverse()
+        
+    # pop out the elements
+    instance.pop()
+    instance.pop()
+    instance.pop(first_element)
+    instance.pop(first_element)
+    
+    # Split instance to 6 parts and take average to each part
+    instance = np.array(instance).astype(np.float)
+    instance = np.array_split(instance, num_split)
+    
+    temp = []
+    for i in range(len(instance)):
+        temp.append(np.mean(instance[i]))
+        
+    temp = list(temp)
+    temp2 = [str(i) for i in temp]
+    instance = temp2
+    
+    return instance
 
 if __name__ == '__main__':
-    testing_file = "TESTING.csv"
+    testing_file = "COFFEE_TEST_1.csv"
     training_file = "DATABASE_TESTING.csv"
     model_file = "MODEL.csv"
     MachineLearning(testing_file, training_file, model_file)
