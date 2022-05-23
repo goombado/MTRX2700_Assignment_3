@@ -13,8 +13,8 @@
 
 #include "servo.h"
 #include "laser.h"
-
 #include "gyro.h"
+#include "scan.h"
 
 
 
@@ -58,17 +58,10 @@ void printErrorCode(IIC_ERRORS error_code) {
 }
 
 
-
 void main(void) {
-
-    AccelRaw read_accel;
-//    AccelScaled scaled_accel;
-
-    GyroRaw read_gyro;
     
     static char buffer[128];
-    unsigned long laserSample;
-    int prev_toggle = 0;
+//    int prev_toggle = 0;
     
     IIC_ERRORS error_code = NO_ERROR;
     
@@ -87,53 +80,20 @@ void main(void) {
         SerialOutputString(buffer, &SCI1);
     }
     
-    sprintf(buffer, "laser,gyro_x,gyro_y,gyro_z\r\n\r\n");
-    SerialOutputString(buffer, &SCI1);
-    
     laserInit();
     
     Init_TC6();
+    Pause_TC6();
     
-    sprintf(buffer, "\r\nSCAN 1 - Left to Right\r\n");
-    SerialOutputString(buffer, &SCI1);
+//    sprintf(buffer, "\r\nSCAN 1 - Left to Right\r\n");
+//    SerialOutputString(buffer, &SCI1);
 
     EnableInterrupts;
     
     _DISABLE_COP();
     
+    beginScan();
     for(;;) {
-    
-        error_code = getRawDataGyro(&read_gyro);   
-    
-        if (error_code != NO_ERROR) {
-          printErrorCode(error_code);   
-           
-          error_code = iicSensorInit();
-          printErrorCode(error_code);   
-        }
-        
-        error_code = getRawDataAccel(&read_accel);
-        if (error_code != NO_ERROR) {
-          printErrorCode(error_code);   
-        
-          error_code = iicSensorInit();
-          printErrorCode(error_code); 
-        }
-
-
-        GetLatestLaserSample(&laserSample);
-        
-        sprintf(buffer, "%lu,%d,%d,%d\r\n", laserSample, read_gyro.x, read_gyro.y, read_gyro.z);
-        SerialOutputString(buffer, &SCI1);
-        
-        /*
-        if (prev_toggle != toggle) {
-            prev_toggle = toggle;
-            sprintf(buffer, "NEXT SCAN\r\n");
-            SerialOutputString(buffer, &SCI1);
-        }
-        */
-        
     } 
   
 }

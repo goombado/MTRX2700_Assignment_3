@@ -1,6 +1,7 @@
 #include <mc9s12dp256.h>        /* derivative information */
 
 #include "simple_serial.h"
+#include "scan.h"
 
 
 // instantiate the serial port parameters
@@ -8,6 +9,9 @@
 SerialPort SCI1 = {&SCI1BDH, &SCI1BDL, &SCI1CR1, &SCI1CR2, &SCI1DRL, &SCI1SR1};
 SerialPort SCI0 = {&SCI0BDH, &SCI0BDL, &SCI0CR1, &SCI0CR2, &SCI0DRL, &SCI0SR1};
 
+
+int stringLength = 0;
+static char buffer[128];
 
 
 // InitialiseSerial - Initialise the serial port SCI1
@@ -57,6 +61,39 @@ void SerialOutputString(char *pt, SerialPort *serial_port) {
     SerialOutputChar(*pt, serial_port);
     pt++;
   }            
+}
+
+
+
+#pragma CODE_SEG __NEAR_SEG NON_BANKED
+__interrupt void serialISR (void) {
+
+  // Check if data is received, ie The RDRF flag
+  if (SCI1SR1 & 0x20) 
+  {
+    // Look for a carriage return
+    if (SCI1DRL == 0x0D) 
+    {   
+        
+        // Don't do anything unless you are ready to send data. The TDRE flag
+        while(!(SCI1SR1 & 0x80));
+        
+        beginScan();
+        
+        // Reset buffer
+        memset(buffer, '\0' , sizeof(buffer));
+        stringLength = 0;
+
+     }
+    
+    // Store each character of sentence in buffer
+    else
+    {
+      buffer[stringLength] = SCI1DRL;
+      stringLength = stringLength + 1;
+    }
+   
+  }
 }
 
 

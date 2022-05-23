@@ -1,11 +1,11 @@
-
 #include "derivative.h"
 #include <math.h> 
 #include <stdio.h>
 #include <stdlib.h>
-#include "servo.h"
 
+#include "servo.h"
 #include "simple_serial.h"
+#include "scan.h"
 
 
 
@@ -47,6 +47,16 @@ void Init_TC6 (void) {
 }
 
 
+void Pause_TC6 (void) {
+  TIE_C6I = 0;
+}
+
+
+void Resume_TC6 (void) {
+  TIE_C6I = 1;
+}
+
+
 // variables to make the servo move back and forth
 // note: This is just to demonstrate the function of the servo
 long iterator_counter = MIN_ITER;
@@ -84,17 +94,19 @@ __interrupt void TC6_ISR(void) {
   
     if (iterator_counter > MAX_ITER) {
       toggle = 1;
-      sprintf(buffer, "\r\nSCAN %d - Right to Left\r\n", scan_num);
     }
     else if (iterator_counter < MIN_ITER) {
       toggle = 0;
-      sprintf(buffer, "\r\nSCAN %d - Left to Right\r\n", scan_num);
     }
     
     if (scan_num == MAX_SCANS) {
-      exit(EXIT_SUCCESS);
+      sprintf(buffer, " %d\r\n", toggle);
+      SerialOutputString(buffer, &SCI1);
+      setServoPose(50 + MIN_ITER, 0); // reset servo
+      scanning = 0;
     }
     
+    sprintf(buffer, " %d\r\n%d ", toggle, toggle);
     SerialOutputString(buffer, &SCI1);
   }
   
