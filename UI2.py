@@ -3,7 +3,12 @@ from tkinter import ttk
 import serial
 import time
 
+# Variables for use
+global totalItems
+totalItems=0
+
 def scan() -> None:
+    global totalItems
     serialString = ""      
     serialPort = serial.Serial(port="COM4", baudrate=9600, bytesize=serial.EIGHTBITS, timeout=2, write_timeout = 0, xonxoff=True, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
     time.sleep(0.1)   # Only needed for Arduino,For AVR/PIC/MSP430 & other Micros not needed
@@ -54,9 +59,6 @@ def checkoutFunc() -> None:
     tk.Button(top, text= "Exit" , command = window.destroy).place(x=120,y=300)
 
 window = tk.Tk()
-
-# Variables for use
-totalItems = 4
 
 
 # Get your screen resolution to calculate layout parameters
