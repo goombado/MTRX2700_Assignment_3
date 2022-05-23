@@ -4,20 +4,23 @@
 
 #include "simple_serial.h"
 #include "servo.h"
+#include "laser.h"
 
 
-
-unsigned long laserSample;
 int scanning = 0;
 static char buffer[128];
 
 
 void beginScan (void) {
     
+    unsigned long laserSample;
+    
     scanning = 1;
     PORTB = 254;
     
-    Resume_TC6();
+    laserInit();
+    
+    Init_TC6();
 
     sprintf(buffer, "0 ");
     SerialOutputString(buffer, &SCI1);
@@ -29,7 +32,7 @@ void beginScan (void) {
         SerialOutputString(buffer, &SCI1);
     }
     
-    Pause_TC6();
+    // Pause_TC6();
     PORTB = 0;
         
     // exit(1);

@@ -47,6 +47,7 @@ void Init_TC6 (void) {
 }
 
 
+/*
 void Pause_TC6 (void) {
   TIE_C6I = 0;
 }
@@ -55,6 +56,7 @@ void Pause_TC6 (void) {
 void Resume_TC6 (void) {
   TIE_C6I = 1;
 }
+*/
 
 
 // variables to make the servo move back and forth
@@ -73,6 +75,10 @@ __interrupt void TC6_ISR(void) {
    
   TC6 = TCNT + 64000;   // interrupt delay depends on the prescaler
   TFLG1 |= TFLG1_C6F_MASK;
+  
+  if (scanning == 0) {
+    return;
+  }
   
   if (scan_skip < SCAN_EVERY_X) {
     scan_skip++;
@@ -104,6 +110,7 @@ __interrupt void TC6_ISR(void) {
       SerialOutputString(buffer, &SCI1);
       setServoPose(50 + MIN_ITER, 0); // reset servo
       scanning = 0;
+      return;
     }
     
     sprintf(buffer, " %d\r\n%d ", toggle, toggle);

@@ -61,7 +61,6 @@ void printErrorCode(IIC_ERRORS error_code) {
 void main(void) {
     
     static char buffer[128];
-//    int prev_toggle = 0;
     
     IIC_ERRORS error_code = NO_ERROR;
     
@@ -69,8 +68,6 @@ void main(void) {
     
     PWMinitialise();
     setServoPose(50 + MIN_ITER, 0);
-    
-    // exit(1);
     
     SerialInitialise(BAUD_9600, &SCI1);
     
@@ -83,16 +80,13 @@ void main(void) {
     laserInit();
     
     Init_TC6();
-    Pause_TC6();
     
-//    sprintf(buffer, "\r\nSCAN 1 - Left to Right\r\n");
-//    SerialOutputString(buffer, &SCI1);
 
     EnableInterrupts;
     
     _DISABLE_COP();
     
-    beginScan();
+    // beginScan();
     for(;;) {
     } 
   

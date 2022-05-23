@@ -1,4 +1,5 @@
 #include <mc9s12dp256.h>        /* derivative information */
+#include <stdio.h>
 
 #include "simple_serial.h"
 #include "scan.h"
@@ -42,7 +43,7 @@ void SerialInitialise(int baudRate, SerialPort *serial_port) {
 	  break;
   }
   
-  *(serial_port->ControlRegister2) = SCI1CR2_RE_MASK | SCI1CR2_TE_MASK;
+  *(serial_port->ControlRegister2) = SCI1CR2_RE_MASK | SCI1CR2_TE_MASK | SCI1CR2_RIE_MASK;
   *(serial_port->ControlRegister1) = 0x00;
 }
     
@@ -66,11 +67,16 @@ void SerialOutputString(char *pt, SerialPort *serial_port) {
 
 
 #pragma CODE_SEG __NEAR_SEG NON_BANKED
-__interrupt void serialISR (void) {
+__interrupt void serialISR() {
 
+  if (scanning == 1) {
+    return;
+  }
+  
   // Check if data is received, ie The RDRF flag
-  if (SCI1SR1 & 0x20) 
+  if (*(SCI1.StatusRegister) & 0x20) 
   {
+    PORTB = 255;
     // Look for a carriage return
     if (SCI1DRL == 0x0D) 
     {   
@@ -89,11 +95,12 @@ __interrupt void serialISR (void) {
     // Store each character of sentence in buffer
     else
     {
-      buffer[stringLength] = SCI1DRL;
+      buffer[stringLength] = *(SCI1.DataRegister);
       stringLength = stringLength + 1;
     }
    
   }
+  PORTB = 255;
 }
 
 
