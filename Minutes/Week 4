@@ -1,0 +1,13 @@
+WEEK 4 MINUTES
+
+Attendees: Andrei, Daniel, Mary, Minghan (Remote), Xuechi (Remote)
+
+We experienced a major setback this week. We spent the whole lab debugging the code we used last week, attempting to make it work in the exact same way.
+Strangely, running the exact same code on the same hardware using the same interface was just not working, even though it did last week. We tested 
+the code on different PTUs and dragonboards to rule out any hardware problems and ultimately decided that we would have to start over and rewrite all of 
+our code from the previous week.
+
+Simultaneously, we worked on integrating serial and our user interface to help prepare for the overall integration of all of our modules. 
+
+We plan on maintianing constant communication throughout the week so that once we have the scans of the objects, we can integrate all of our modules and 
+be ready for our presentation on tuesday.
