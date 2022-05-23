@@ -10,7 +10,8 @@ MSG_HEADER_SIZE = 16
 def read_packet(f, outFile = None):
     header_bytes = f.readline()
     if outFile is not None:
-        outFile.write(header_bytes)
+        outFile.write(f"{header_bytes.decode('utf-8').strip()}\n")
+        outFile.flush()
     else:
         print(header_bytes)
     return True
@@ -59,7 +60,7 @@ def read_serial(com_port):
     serialPort = serial.Serial(port=com_port, baudrate=9600, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
     serialString = ""  # Used to hold data coming over UART
 
-    outFile = open('wall_data.csv', 'w')
+    outFile = open('coffee_data_50.csv', 'w')
     while True:
 
         # Wait until there is data waiting in the serial buffer
@@ -71,6 +72,7 @@ def read_serial(com_port):
                     break
             except Exception as e:
                 # Logs the error appropriately. 
+                outFile.close()
                 print(traceback.format_exc())
                 break
        
