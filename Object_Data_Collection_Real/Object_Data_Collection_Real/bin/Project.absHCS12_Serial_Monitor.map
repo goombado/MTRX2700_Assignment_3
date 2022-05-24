@@ -55,7 +55,7 @@ Section Name                    Size  Type     From       To       Segment
 .rodata1                          46     R     0xC156     0xC183   ROM_C000
 NON_BANKED                      1982     R     0xC184     0xC941   ROM_C000
 .copy                             34     R     0xC942     0xC963   ROM_C000
-.text                           3928     R   0x308000   0x308F57   PAGE_30
+.text                           3919     R   0x308000   0x308F4E   PAGE_30
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .data                             28   R/W     0x1100     0x111B   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -404,7 +404,7 @@ NON_BANKED                      1982     R     0xC184     0xC941   ROM_C000
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):        193C (dec:     6460)
+READ_ONLY (R):        1933 (dec:     6451)
 READ_WRITE (R/W):      33B (dec:      827)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -796,7 +796,7 @@ MODULE:                 -- l3g4200d.c.o --
      mag_cfg                                   1106       2       2       1   .data       
 MODULE:                 -- laser.c.o --
 - PROCEDURES:
-     laserInit                               308149      13      19       4   .text       
+     laserInit                               308149      13      19       2   .text       
      GetLatestLaserSample                    30815C       D      13       2   .text       
      TC1_ISR                                   C1BB      47      71       1   NON_BANKED  
 - VARIABLES:
@@ -811,7 +811,7 @@ MODULE:                 -- servo.c.o --
 - PROCEDURES:
      PWMinitialise                           30817E      27      39       2   .text       
      setServoPose                            3081A5       D      13       4   .text       
-     Init_TC6                                3081B2      13      19       4   .text       
+     Init_TC6                                3081B2      13      19       2   .text       
      TC6_ISR                                   C202     107     263       1   NON_BANKED  
 - VARIABLES:
      STRING...d...1                            C156       6       6       1   .rodata1    
@@ -933,7 +933,7 @@ MODULE:                 -- VREGS.C.o (ansibf.lib) --
 - VARIABLES:
 MODULE:                 -- scan.c.o --
 - PROCEDURES:
-     beginScan                               308F04      54      84       4   .text       
+     beginScan                               308F04      4B      75       4   .text       
 - VARIABLES:
      STRING.0..1                               C17C       3       3       1   .rodata1    
      STRING..lu..2                             C17F       5       5       1   .rodata1    
@@ -964,7 +964,7 @@ MODULE STATISTIC
   DREGS.C.o (ansibf.lib)                       0    384      0
   rtshc12.c.o (ansibf.lib)                     0    397      0
   VREGS.C.o (ansibf.lib)                       0     18      0
-  scan.c.o                                   130     84      8
+  scan.c.o                                   130     75      8
   other                                      256     12     34
 
 *********************************************************************************************
@@ -2121,12 +2121,12 @@ OBJECT LIST SORTED BY ADDRESS
      accel_init                              308119      10      16       2   .text       
      gyro_init                               308129      10      16       2   .text       
      magnet_init                             308139      10      16       2   .text       
-     laserInit                               308149      13      19       4   .text       
+     laserInit                               308149      13      19       2   .text       
      GetLatestLaserSample                    30815C       D      13       2   .text       
      PLL_Init                                308169      15      21       2   .text       
      PWMinitialise                           30817E      27      39       2   .text       
      setServoPose                            3081A5       D      13       4   .text       
-     Init_TC6                                3081B2      13      19       4   .text       
+     Init_TC6                                3081B2      13      19       2   .text       
      SerialInitialise                        3081C5      42      66       2   .text       
      SerialOutputChar                        308207      11      17       2   .text       
      SerialOutputString                      308218      19      25       6   .text       
@@ -2139,7 +2139,7 @@ OBJECT LIST SORTED BY ADDRESS
      deposit_char                            308EAE       F      15       3   .text       
      sprintf                                 308EBD      2F      47      10   .text       
      memset                                  308EEC      18      24       2   .text       
-     beginScan                               308F04      54      84       4   .text       
+     beginScan                               308F04      4B      75       4   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -2304,9 +2304,8 @@ vprintf                   USES vprintf _CASE_SEARCH_8_BYTE _CASE_DIRECT_BYTE
 _out                      USES pbuf 
 deposit_char              USES pbuf 
 sprintf                   USES pbuf deposit_char vprintf 
-beginScan                 USES scanning _PORTAB laserInit Init_TC6 STRING.0..1 
-                                buffer sprintf GetLatestLaserSample STRING..lu..2 
-                                SCI1 SerialOutputString 
+beginScan                 USES scanning _PORTAB STRING.0..1 buffer sprintf 
+                                GetLatestLaserSample STRING..lu..2 SCI1 SerialOutputString 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -2487,10 +2486,6 @@ DEPENDENCY TREE
  |  |    
  |  +- beginScan           
  |  |  | 
- |  |  +- laserInit            (see above)
- |  |  |  
- |  |  +- Init_TC6             (see above)
- |  |  |  
  |  |  +- sprintf              (see above)
  |  |  |  
  |  |  +- GetLatestLaserSample
@@ -2540,5 +2535,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 6460
+Total size of all blocks to be downloaded: 6451
 

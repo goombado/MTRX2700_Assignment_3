@@ -18,9 +18,9 @@ void beginScan (void) {
     scanning = 1;
     PORTB = 254;
     
-    laserInit();
+    // laserInit();
     
-    Init_TC6();
+    // Init_TC6();
 
     sprintf(buffer, "0,");
     SerialOutputString(buffer, &SCI1);
