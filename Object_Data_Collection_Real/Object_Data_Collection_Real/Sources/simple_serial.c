@@ -87,9 +87,7 @@ void serial_read (void) {
         while(!(SCI1SR1 & 0x80));
         
         // *(SCI1.ControlRegister2) &= ~(SCI1CR2_RIE_MASK);
-        if (buffer[0] == 's') {
-            beginScan();
-        }
+        beginScan();
         // *(SCI1.ControlRegister2) |= SCI1CR2_RIE_MASK;
         
         // Reset buffer
