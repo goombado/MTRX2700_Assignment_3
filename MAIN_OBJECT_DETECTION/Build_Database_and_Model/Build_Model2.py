@@ -124,8 +124,8 @@ def Normalize_data(data, min_column, max_column):
 if __name__ == '__main__':
     start = time.perf_counter()
     
-    database_filename = "DATABASE_TESTING.csv"
-    model_filename = "MODEL.csv"
+    database_filename = "DATABASE_NEW.csv"
+    model_filename = "MODEL_NEW.csv"
     
     Build_Model(database_filename, model_filename)
     
