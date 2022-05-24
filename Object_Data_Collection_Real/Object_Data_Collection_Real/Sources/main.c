@@ -88,6 +88,7 @@ void main(void) {
     
     // beginScan();
     for(;;) {
+        serial_read();
     } 
   
 }

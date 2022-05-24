@@ -96,8 +96,6 @@ __interrupt void TC6_ISR(void) {
     ;
   }
   else {
-    scan_num++;
-  
     if (iterator_counter > MAX_ITER) {
       toggle = 1;
     }
@@ -113,10 +111,11 @@ __interrupt void TC6_ISR(void) {
       return;
     }
     
+    scan_num++;
+    
     sprintf(buffer, " %d\r\n%d ", toggle, toggle);
     SerialOutputString(buffer, &SCI1);
   }
-  
   
   setServoPose(50 + iterator_counter, 0);    
 }

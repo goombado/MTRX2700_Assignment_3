@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 import serial
 import time
-from TempObjectDetect import main_object_detection 
+from Main_Object_Detection import main_object_detection 
 
 # Variables for use
 global uniqueItems
@@ -12,7 +12,7 @@ uniqueItems=0
 def scan() -> None:
     global uniqueItems
     serialString = ""      
-    serialPort = serial.Serial(port="COM6", baudrate=9600, bytesize=serial.EIGHTBITS, timeout=2, write_timeout = 0, xonxoff=True, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
+    serialPort = serial.Serial(port="COM9", baudrate=9600, bytesize=serial.EIGHTBITS, timeout=2, write_timeout = 0, xonxoff=True, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
     time.sleep(0.1)   # Only needed for Arduino,For AVR/PIC/MSP430 & other Micros not needed
     BytesWritten1 = serialPort.write(b's')      #transmit 'A' (8bit) to micro/Arduino
     serialPort.flush()

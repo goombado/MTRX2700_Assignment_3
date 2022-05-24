@@ -43,7 +43,7 @@ void SerialInitialise(int baudRate, SerialPort *serial_port) {
 	  break;
   }
   
-  *(serial_port->ControlRegister2) = SCI1CR2_RE_MASK | SCI1CR2_TE_MASK | SCI1CR2_RIE_MASK;
+  *(serial_port->ControlRegister2) = SCI1CR2_RE_MASK | SCI1CR2_TE_MASK;// | SCI1CR2_RIE_MASK;
   *(serial_port->ControlRegister1) = 0x00;
 }
     
@@ -66,9 +66,11 @@ void SerialOutputString(char *pt, SerialPort *serial_port) {
 
 
 
-#pragma CODE_SEG __NEAR_SEG NON_BANKED
-__interrupt void serialISR (void) {
+// #pragma CODE_SEG __NEAR_SEG NON_BANKED
+// __interrupt void serialISR (void) {
 
+void serial_read (void) {
+    
   if (scanning == 1) {
     return;
   }
@@ -84,9 +86,9 @@ __interrupt void serialISR (void) {
         // Don't do anything unless you are ready to send data. The TDRE flag
         while(!(SCI1SR1 & 0x80));
         
-        *(SCI1.ControlRegister2) &= ~(SCI1CR2_RIE_MASK);
+        // *(SCI1.ControlRegister2) &= ~(SCI1CR2_RIE_MASK);
         beginScan();
-        *(SCI1.ControlRegister2) |= SCI1CR2_RIE_MASK;
+        // *(SCI1.ControlRegister2) |= SCI1CR2_RIE_MASK;
         
         // Reset buffer
         memset(buffer, '\0' , sizeof(buffer));
@@ -102,7 +104,7 @@ __interrupt void serialISR (void) {
     }
    
   }
-  PORTB = 255;
+  // PORTB = 255;
 }
 
 

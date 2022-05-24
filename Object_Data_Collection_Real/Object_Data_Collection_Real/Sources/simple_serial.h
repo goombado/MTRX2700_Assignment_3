@@ -46,7 +46,9 @@ void SerialOutputString(char *pt, SerialPort *serial_port);
 
 
 // interrupt vector for receiving serial
-__interrupt void serialISR (void); 
+// __interrupt void serialISR (void);
+
+void read_serial (void); 
  
  
 #endif
