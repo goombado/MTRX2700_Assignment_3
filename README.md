@@ -25,15 +25,6 @@ the quantity of each, and their price. The UI will repeatedly call for an item t
 chooses to checkout.
 </p>
 
-<p>
-Additional functions are included to enhance the user experience such as displaying a ‘scanning’ message
-on the microcontroller during the scan and playing different sounds depending on successful or unsuccessful
-scans.
-An extension that can be implemented if time allows is to create a UI mode to add objects to the list of
-items that can be detected. The hardware will scan the new object and add the data to a text file. This
-text file will then be used as the pre-set reference data when objects are scanned for checkout.
-</p>
-
 
 ## Modules for the System
 
