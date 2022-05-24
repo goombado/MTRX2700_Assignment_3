@@ -154,17 +154,25 @@ def Process_Testing_File(testing_file, training_file):
         for instance in data1:
             instance = instance.replace("\n", "")
             instance = instance.split(",")
+            
+            if len(instance) < 10:
+                continue
+            while '' in instance:
+                instance.remove('')
+            
+ 
             instance = Split_and_reverse_data(instance)
             test.append(instance)
             
         test = np.array(test).astype(np.float)
-        
-        
+
         # Read training file and store data to 2-d array, 'train'
         data2 = file2.readlines()
         for instance in data2:
             instance = instance.replace("\n", "")
             instance = instance.split(",")
+            
+            
             temp_class = instance[Class_index]
             instance.pop()
             Class.append(temp_class)
@@ -229,7 +237,7 @@ def Split_and_reverse_data(instance):
     return instance
 
 if __name__ == '__main__':
-    testing_file = "COFFEE_TEST_1.csv"
+    testing_file = "detected.csv"
     training_file = "DATABASE_NEW.csv"
     model_file = "MODEL_NEW.csv"
     MachineLearning(testing_file, training_file, model_file)
