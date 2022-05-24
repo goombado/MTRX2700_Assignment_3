@@ -104,7 +104,7 @@ __interrupt void TC6_ISR(void) {
     }
     
     if (scan_num == MAX_SCANS) {
-      sprintf(buffer, " %d\r\n", toggle);
+      sprintf(buffer, ",%d\r\n", toggle);
       SerialOutputString(buffer, &SCI1);
       
       setServoPose(50 + MIN_ITER, 0); // reset servo
@@ -119,7 +119,7 @@ __interrupt void TC6_ISR(void) {
     
     scan_num++;
     
-    sprintf(buffer, " %d\r\n%d ", toggle, toggle);
+    sprintf(buffer, ",%d\r\n%d,", toggle, toggle);
     SerialOutputString(buffer, &SCI1);
   }
   

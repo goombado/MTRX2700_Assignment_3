@@ -22,7 +22,7 @@ void beginScan (void) {
     
     Init_TC6();
 
-    sprintf(buffer, "0 ");
+    sprintf(buffer, "0,");
     SerialOutputString(buffer, &SCI1);
     
     while (scanning) {
