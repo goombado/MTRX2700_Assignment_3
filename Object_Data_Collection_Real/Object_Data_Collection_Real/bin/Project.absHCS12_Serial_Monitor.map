@@ -55,7 +55,7 @@ Section Name                    Size  Type     From       To       Segment
 .rodata1                          54     R     0xC156     0xC18B   ROM_C000
 NON_BANKED                      1982     R     0xC18C     0xC949   ROM_C000
 .copy                             34     R     0xC94A     0xC96B   ROM_C000
-.text                           3935     R   0x308000   0x308F5E   PAGE_30
+.text                           3939     R   0x308000   0x308F62   PAGE_30
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .data                             28   R/W     0x1100     0x111B   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -404,7 +404,7 @@ NON_BANKED                      1982     R     0xC18C     0xC949   ROM_C000
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):        194B (dec:     6475)
+READ_ONLY (R):        194F (dec:     6479)
 READ_WRITE (R/W):      33B (dec:      827)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -841,17 +841,17 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          1100       0       0       1               
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                    30829E      56      86       2   .text       
+     main                                    30829E      5A      90       2   .text       
 - VARIABLES:
      STRING.Error.setting.up.IIC.10            C165      17      23       1   .rodata1    
      buffer.9                                  1232      80     128       2   .bss        
 MODULE:                 -- PRINTF.C.o (ansibf.lib) --
 - PROCEDURES:
-     Ten                                     3082F4      F6     246      14   .text       
-     vprintf                                 3083EA     AB4    2740     155   .text       
-     _out                                    308E9E       C      12       2   .text       
-     deposit_char                            308EAA       F      15       3   .text       
-     sprintf                                 308EB9      2F      47      12   .text       
+     Ten                                     3082F8      F6     246      14   .text       
+     vprintf                                 3083EE     AB4    2740     155   .text       
+     _out                                    308EA2       C      12       2   .text       
+     deposit_char                            308EAE       F      15       3   .text       
+     sprintf                                 308EBD      2F      47      12   .text       
 - VARIABLES:
      pow10                                     C022      28      40       6   .rodata     
      pow16                                     C04A      20      32       4   .rodata     
@@ -861,7 +861,7 @@ MODULE:                 -- PRINTF.C.o (ansibf.lib) --
      pbuf                                      12B2       7       7      16   .bss        
 MODULE:                 -- STRING.C.o (ansibf.lib) --
 - PROCEDURES:
-     memset                                  308EE8      18      24       2   .text       
+     memset                                  308EEC      18      24       2   .text       
 - VARIABLES:
 MODULE:                 -- DADD.C.o (ansibf.lib) --
 - PROCEDURES:
@@ -933,7 +933,7 @@ MODULE:                 -- VREGS.C.o (ansibf.lib) --
 - VARIABLES:
 MODULE:                 -- scan.c.o --
 - PROCEDURES:
-     beginScan                               308F00      5F      95       2   .text       
+     beginScan                               308F04      5F      95       4   .text       
 - VARIABLES:
      STRING.0..1                               C17C       3       3       1   .rodata1    
      STRING..lu..2                             C17F       5       5       1   .rodata1    
@@ -954,7 +954,7 @@ MODULE STATISTIC
   servo.c.o                                  138    334     15
   simple_serial.c.o                          142    176      0
   Start12.c.o                                  0     65      0
-  main.c.o                                   128     86     23
+  main.c.o                                   128     90     23
   PRINTF.C.o (ansibf.lib)                      7   3060    308
   STRING.C.o (ansibf.lib)                      0     24      0
   DADD.C.o (ansibf.lib)                        0    253      0
@@ -2134,14 +2134,14 @@ OBJECT LIST SORTED BY ADDRESS
      SerialOutputString                      308218      19      25       6   .text       
      serial_read                             308231      44      68       2   .text       
      Init                                    308275      29      41       2   .text       
-     main                                    30829E      56      86       2   .text       
-     Ten                                     3082F4      F6     246      14   .text       
-     vprintf                                 3083EA     AB4    2740     155   .text       
-     _out                                    308E9E       C      12       2   .text       
-     deposit_char                            308EAA       F      15       3   .text       
-     sprintf                                 308EB9      2F      47      12   .text       
-     memset                                  308EE8      18      24       2   .text       
-     beginScan                               308F00      5F      95       2   .text       
+     main                                    30829E      5A      90       2   .text       
+     Ten                                     3082F8      F6     246      14   .text       
+     vprintf                                 3083EE     AB4    2740     155   .text       
+     _out                                    308EA2       C      12       2   .text       
+     deposit_char                            308EAE       F      15       3   .text       
+     sprintf                                 308EBD      2F      47      12   .text       
+     memset                                  308EEC      18      24       2   .text       
+     beginScan                               308F04      5F      95       4   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -2297,7 +2297,7 @@ Init                      USES _startupData
 main                      USES PLL_Init PWMinitialise setServoPose SCI1 
                                 SerialInitialise iicSensorInit STRING.Error.setting.up.IIC.10 
                                 buffer.9 sprintf SerialOutputString laserInit Init_TC6 
-                                serial_read 
+                                beginScan serial_read 
 Ten                       USES fpow10 fpow_10 Ten _DMUL _COPY 
 vprintf                   USES vprintf _CASE_SEARCH_8_BYTE _CASE_DIRECT_BYTE 
                                 _CASE_SEARCH_8 pbuf _ILSEXT _LNEG pow8 _LCMP_P pow16 pow10 
@@ -2487,16 +2487,18 @@ DEPENDENCY TREE
  |  |    
  |  +- Init_TC6            
  |  |    
+ |  +- beginScan           
+ |  |  | 
+ |  |  +- sprintf              (see above)
+ |  |  |  
+ |  |  +- GetLatestLaserSample
+ |  |  |    
+ |  |  +- SerialOutputString   (see above)
+ |  |     
  |  +- serial_read         
  |     | 
- |     +- beginScan           
- |     |  | 
- |     |  +- sprintf              (see above)
- |     |  |  
- |     |  +- GetLatestLaserSample
- |     |  |    
- |     |  +- SerialOutputString   (see above)
- |     |     
+ |     +- beginScan            (see above)
+ |     |  
  |     +- memset              
  |          
  +- _Startup            
@@ -2536,5 +2538,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 6475
+Total size of all blocks to be downloaded: 6479
 
