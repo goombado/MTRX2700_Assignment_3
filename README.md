@@ -38,6 +38,9 @@ text file will then be used as the pre-set reference data when objects are scann
 ## Modules for the System
 
 ### Scanning 
+In terms of scanning process, the laser scanner would scan the object 5 time in both forward and backword directions. The scanned data would be stored in a text(.txt)file. Then a machine learning model would check that data and returns information of the object. UI module would print details of scanned object (names, price, etc.). Then the text file which stores old data would be cleared. Waiting for next scanned data.
+	
+Machine learning model consists of 3 parts: Database, Naive Bayes Model and Stratified
 
 ### UI
 
