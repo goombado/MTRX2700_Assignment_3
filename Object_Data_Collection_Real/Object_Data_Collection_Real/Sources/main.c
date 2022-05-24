@@ -69,6 +69,8 @@ void main(void) {
     DDRB = 0xFF; // initialise PORTB for LED output while scanning
     PORTB = 0;
     
+    DDRT  = DDRT_DDRT5_MASK;        // enable PT5 for output for sound
+    
     PWMinitialise();
     setServoPose(50 + MIN_ITER, 0);
     
