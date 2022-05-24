@@ -78,7 +78,7 @@ void serial_read (void) {
   // Check if data is received, ie The RDRF flag
   if (*(SCI1.StatusRegister) & 0x20) 
   {
-    PORTB = 255;
+    // PORTB = 255;
     // Look for a carriage return
     if (SCI1DRL == 0x0D) 
     {   

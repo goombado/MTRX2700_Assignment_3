@@ -66,6 +66,9 @@ void main(void) {
     
     PLL_Init();
     
+    DDRB = 0xFF; // initialise PORTB for LED output while scanning
+    PORTB = 0;
+    
     PWMinitialise();
     setServoPose(50 + MIN_ITER, 0);
     

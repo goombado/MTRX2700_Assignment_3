@@ -9,6 +9,11 @@
 
 int scanning = 0;
 static char buffer[128];
+int light_num = 0;
+int pb_num = 0;
+int pb_presets[8] = {
+    128, 192, 224, 240, 248, 252, 254, 255
+};
 
 
 void beginScan (void) {
@@ -16,7 +21,7 @@ void beginScan (void) {
     unsigned long laserSample;
     
     scanning = 1;
-    PORTB = 254;
+    PORTB = 255;
     
     // laserInit();
     
@@ -30,6 +35,18 @@ void beginScan (void) {
 
         sprintf(buffer, "%lu,", laserSample);
         SerialOutputString(buffer, &SCI1);
+        
+        if (light_num == 20) {
+            light_num = 0;
+            PORTB = pb_presets[pb_num++];
+            if (pb_num == 8) {
+                pb_num = 0;
+            }
+        }
+        else {
+            light_num++;
+        }        
+            
     }
     
     // Pause_TC6();
