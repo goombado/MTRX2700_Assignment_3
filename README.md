@@ -14,17 +14,17 @@
 <p>
 To create a more futuristic supermarket experience, we have designed a barcodeless scanning checkout system that utilises object detection to add products to a customers’ receipt rather than scanning a barcode. There are two main modules that our system can be broken down into: the hardware system and the user interface.
 </p>
-  
+
 <p>
 The hardware system uses a Lidar sensor to scan an object from a fixed distance, compare the scan to pre-set data to determine the objects nature, and communicate this information to the user interface.
 </p>
-  
+
 <p>
 The user interface emulates a checkout register in that it shows a list of items that have been scanned,
 the quantity of each, and their price. The UI will repeatedly call for an item to scan until the customer
 chooses to checkout.
 </p>
-  
+
 <p>
 Additional functions are included to enhance the user experience such as displaying a ‘scanning’ message
 on the microcontroller during the scan and playing different sounds depending on successful or unsuccessful
@@ -41,7 +41,9 @@ text file will then be used as the pre-set reference data when objects are scann
 
 ### UI
 
-The UI is created in python with the tkinter module. It essentially forms the core of this project as it sends the scan command to the dragon board, receives information about the detected object and outputs it in the form as a receipt. It also allows for the final checkout button, where the full receipt will be printed and an exit button is included to exit the program
+The UI is created in python with the tkinter module. It essentially forms the core of this project as it sends the scan command to the dragon board, receives information about the detected object and outputs it in the form as a receipt. It also allows for the final checkout button, where the full receipt will be printed and an exit button is included to exit the program.
+
+Firstly, when the Scan button is pressed, serial data is sent to the Dragonboard. When a carriage return byte is read from serial, the Dragonboard begins scanning the object in front of it, and outputting this data to serial. The UI reads this data, and writes to "detected.csv" until a terminating "END" message is received via serial from the board. When this message is received, the UI knows that all scans have been performed, and can move onto detection.
 
 #### Detailed Description
 
