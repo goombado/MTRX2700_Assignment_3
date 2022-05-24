@@ -33,6 +33,8 @@ void beginScan (void) {
     }
     
     // Pause_TC6();
+    sprintf(buffer, "\r\nEND\r\n");
+    SerialOutputString(buffer, &SCI1);
     PORTB = 0;
         
     // exit(1);

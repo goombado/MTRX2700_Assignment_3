@@ -35,6 +35,8 @@ def scan() -> None:
 
         outFile.write(f"{message}\n")
         outFile.flush()
+        
+    outFile.close()
     
     detectedObject = main_object_detection('detected.csv', "DATABASE_TESTING.csv", "MODEL.csv")
     itemFound = False
