@@ -67,7 +67,7 @@ void SerialOutputString(char *pt, SerialPort *serial_port) {
 
 
 #pragma CODE_SEG __NEAR_SEG NON_BANKED
-__interrupt void serialISR() {
+__interrupt void serialISR (void) {
 
   if (scanning == 1) {
     return;
@@ -84,7 +84,9 @@ __interrupt void serialISR() {
         // Don't do anything unless you are ready to send data. The TDRE flag
         while(!(SCI1SR1 & 0x80));
         
+        *(SCI1.ControlRegister2) &= ~(SCI1CR2_RIE_MASK);
         beginScan();
+        *(SCI1.ControlRegister2) |= SCI1CR2_RIE_MASK;
         
         // Reset buffer
         memset(buffer, '\0' , sizeof(buffer));
