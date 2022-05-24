@@ -230,8 +230,8 @@ def Split_and_reverse_data(instance):
 
 if __name__ == '__main__':
     testing_file = "COFFEE_TEST_1.csv"
-    training_file = "DATABASE_TESTING.csv"
-    model_file = "MODEL.csv"
+    training_file = "DATABASE_NEW.csv"
+    model_file = "MODEL_NEW.csv"
     MachineLearning(testing_file, training_file, model_file)
     
     

@@ -36,8 +36,8 @@ if __name__ == '__main__':
      start = time.perf_counter()
     
      testing_file = "COFFEE_TEST_1.csv"
-     training_file = "DATABASE_TESTING.csv"
-     model_file = "MODEL.csv"
+     training_file = "DATABASE_NEW.csv"
+     model_file = "MODEL_NEW.csv"
      
      main_object_detection(training_file, testing_file, model_file)
      
