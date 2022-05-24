@@ -42,11 +42,11 @@ In terms of scanning process, the laser scanner would scan the object 5 time in 
 	
 Machine learning model consists of 3 parts: Database, Naive Bayes Model and Stratified 10 fold cross-validation.
 
-	- Database would store a large quantity of data. The these datasets would be used to train the machine learning model. It contains horizontal scanning result for mulitple objects (coffee cup, box, etc) with 50 datasets for each object.
+- Database would store a large quantity of data. The these datasets would be used to train the machine learning model. It contains horizontal scanning result for mulitple objects (coffee cup, box, etc) with 50 datasets for each object.
 
-	- Naive Bayes model could evaluate how close does a scanned dataset to a sample in database​. A probablity density function would be used to implement this. If the possibility of scanned data to be an object recorded in database is high enough. Then the model would match the dataset with the object. 
+- Naive Bayes model could evaluate how close does a scanned dataset to a sample in database​. A probablity density function would be used to implement this. If the possibility of scanned data to be an object recorded in database is high enough. Then the model would match the dataset with the object. 
 
-	- Stratified 10 fold cross-validation is a method which calculates the accuracy of machine learning models. Procedures are given below:
+- Stratified 10 fold cross-validation is a method which calculates the accuracy of machine learning models. Procedures are given below:
 Provided that there are N datasets(D1,D2,…,Dn), we ignore the first dataset and use remaining data 
 Repeat Step 1 for D2, D3,…,Dn.  Stop until all datasets are tested
 Calculate average accuracy.
