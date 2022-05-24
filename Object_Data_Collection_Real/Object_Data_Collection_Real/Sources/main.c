@@ -86,7 +86,7 @@ void main(void) {
     
     _DISABLE_COP();
     
-    beginScan();
+    // beginScan();
     for(;;) {
         serial_read();
     } 
