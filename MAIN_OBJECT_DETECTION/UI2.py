@@ -38,7 +38,7 @@ def scan() -> None:
         
     outFile.close()
     
-    detectedObject = main_object_detection('detected.csv', "DATABASE_TESTING.csv", "MODEL.csv")
+    detectedObject = main_object_detection('DATABASE_NEW.csv', 'detected.csv', "MODEL_NEW.csv")
     itemFound = False
 
     if uniqueItems != 0:
